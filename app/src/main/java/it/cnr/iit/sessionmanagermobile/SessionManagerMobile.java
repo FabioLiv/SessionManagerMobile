@@ -102,6 +102,30 @@ public class SessionManagerMobile extends OrmLiteBaseService<DatabaseMobileHelpe
     }
 
     @Override
+    public List<Session> getSessionsForSubjectAttributes(String subjectId, String attributeName) {
+        try {
+            RuntimeExceptionDao<OnGoingAttribute, Integer> attributesDao = getHelper().getAttributesRuntimeDao();
+            QueryBuilder<OnGoingAttribute, Integer> qbAttributes = attributesDao.queryBuilder();
+            List<OnGoingAttribute> attributes = qbAttributes.where()
+                    .isNotNull(OnGoingAttribute.SUBJECTID_FIELD_NAME).and()
+                    .isNull(OnGoingAttribute.OBJECTID_FIELD_NAME).and()
+                    .eq(OnGoingAttribute.ATTRIBUTENAME_FIELD_NAME, attributeName).and()
+                    .eq(OnGoingAttribute.SUBJECTID_FIELD_NAME, subjectId)
+                    .query();
+
+            List<Session> sessions = new LinkedList<>();
+            for (OnGoingAttribute attr : attributes) {
+                sessions.add(attr.getSession());
+            }
+            return sessions;
+
+        } catch (SQLException ex) {
+
+        }
+        return null;
+    }
+
+    @Override
     public List<Session> getSessionsForObjectAttributes(String attributeName) {
         try {
             // select * from on_going_attributes where name == 'attributeName' and subject_id is null and object_id is not null
@@ -111,6 +135,30 @@ public class SessionManagerMobile extends OrmLiteBaseService<DatabaseMobileHelpe
                     .isNull(OnGoingAttribute.SUBJECTID_FIELD_NAME).and()
                     .isNotNull(OnGoingAttribute.OBJECTID_FIELD_NAME).and()
                     .eq(OnGoingAttribute.ATTRIBUTENAME_FIELD_NAME, attributeName)
+                    .query();
+
+            List<Session> sessions = new LinkedList<>();
+            for (OnGoingAttribute attr : attributes) {
+                sessions.add(attr.getSession());
+            }
+            return sessions;
+
+        } catch (SQLException ex) {
+
+        }
+        return null;
+    }
+
+    @Override
+    public List<Session> getSessionsForObjectAttributes(String objectId, String attributeName) {
+        try {
+            RuntimeExceptionDao<OnGoingAttribute, Integer> attributesDao = getHelper().getAttributesRuntimeDao();
+            QueryBuilder<OnGoingAttribute, Integer> qbAttributes = attributesDao.queryBuilder();
+            List<OnGoingAttribute> attributes = qbAttributes.where()
+                    .isNull(OnGoingAttribute.SUBJECTID_FIELD_NAME).and()
+                    .isNotNull(OnGoingAttribute.OBJECTID_FIELD_NAME).and()
+                    .eq(OnGoingAttribute.ATTRIBUTENAME_FIELD_NAME, attributeName).and()
+                    .eq(OnGoingAttribute.OBJECTID_FIELD_NAME, objectId)
                     .query();
 
             List<Session> sessions = new LinkedList<>();

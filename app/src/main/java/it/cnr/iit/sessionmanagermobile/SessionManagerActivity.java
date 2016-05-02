@@ -33,7 +33,7 @@ public class SessionManagerActivity extends OrmLiteBaseActivity<DatabaseMobileHe
         attributes.add("bbb");
 
         //ESEMPIO 1: CREA TRE SESSIONI, AGGIORNA LO STATO DI UNA, TESTA I METODI GETSESSIONSFORSTATUS E GETSESSIONFOR ID E LE ELIMINA
-        sm.createEntryForSubject("1", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "fabio");
+        /*sm.createEntryForSubject("1", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "fabio");
         sm.createEntryForObject("2", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "room");
         sm.createEntryForObject("3", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "desk");
         sm.updateEntry("1", "status2");
@@ -43,19 +43,25 @@ public class SessionManagerActivity extends OrmLiteBaseActivity<DatabaseMobileHe
         }
         sm.deleteEntry("1");
         sm.deleteEntry("2");
-        sm.deleteEntry("3");
+        sm.deleteEntry("3");*/
 
         //ESEMPIO 2: CREA 3 SESSIONI CON ON_GOING_ATTRIBUTES MULTI-VALORE E RICHIAMA LA GETSESSIONSFOROBJECTSATTRIBUTES INVIANDOLE 1 ATTRIBUTO
-        /*sm.createEntryForSubject("1", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "fabio");
+        sm.createEntryForSubject("1", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "fabio");
         sm.createEntryForObject("2", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "room");
         sm.createEntryForObject("3", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "desk");
+        sm.createEntryForObject("4", "<policyOnGoing1>", "<policyPost1>", "<originalRequest1>", attributes, "status1", "pepURI1", "desk");
         List<Session> result = sm.getSessionsForObjectAttributes("aaa");
         for (Session s : result) {
             System.out.println(s.toString());
         }
+        List<Session> result1 = sm.getSessionsForObjectAttributes("desk","aaa");
+        for (Session s : result1) {
+            System.out.println(s.toString());
+        }
         sm.deleteEntry("1");
         sm.deleteEntry("2");
-        sm.deleteEntry("3");*/
+        sm.deleteEntry("3");
+        sm.deleteEntry("4");
     }
 
     @Override
